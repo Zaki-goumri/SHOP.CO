@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-lg font-semibold mb-4">About Us</h3>
-            <p className="text-gray-600">ShopNest is your one-stop shop for all your tech needs. We offer a wide range of products at competitive prices.</p>
+            <p className="text-gray-600">ShOP.CO is your one-stop shop for all your tech needs. We offer a wide range of products at competitive prices.</p>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-4">Customer Service</h3>

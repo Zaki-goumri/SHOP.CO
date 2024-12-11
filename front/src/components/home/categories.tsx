@@ -3,10 +3,10 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Baby, Smartphone, Watch } from 'lucide-react'
 
 const categories = [
-  { name: 'Men', icon: Baby },
-  { name: 'Women', icon: Smartphone },
-  { name: 'Kids', icon: Baby },
-  { name: 'Accessories', icon: Watch },
+  'Men',
+ 'Women',
+  'Kids',
+'Accessories'
 ]
 
 export default function Categories() {
@@ -16,11 +16,10 @@ export default function Categories() {
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Shop by Category</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {categories.map((category) => (
-            <Link key={category.name} href={`/category/${category.name.toLowerCase()}`}>
+            <Link key={category} href={`/category/${category.toLowerCase()}`}>
               <Card className="hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="flex flex-col items-center justify-center p-6">
-                  <category.icon className="h-12 w-12 text-primary mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">{category}</h3>
                 </CardContent>
               </Card>
             </Link>

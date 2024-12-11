@@ -23,7 +23,6 @@ export default function Page() {
         throw new Error('Unauthorized');
       }
       setUser(response.data); 
-      // push('/signin');
       return response.data;
     }
 
