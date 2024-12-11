@@ -1,5 +1,5 @@
 "use server"
-import axios from '@/api/axios/axios'
+import axios from '@/api/axios/login'
 
 export const isItAuthorized = async () => {
   const token = document.cookie
