@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { useState } from "react"
-import axios from "@/api/axios/axios"
+import axios from "@/api/axios/login"
 import { serialize } from 'cookie';
 import { z } from "zod"
 import { useForm } from "react-hook-form"
@@ -61,6 +61,16 @@ const { push } = useRouter();
    const controller = new AbortController();
   axios.post(`/auth/register`, values,{signal: controller.signal})
   .then(response => {
+    const { accessToken, refreshToken } = response.data;
+      document.cookie = serialize('accessToken', accessToken, {
+        httpOnly:false,
+        expires: new Date(Date.now() +  24 * 60 * 60 * 1000) 
+
+      });
+      document.cookie = serialize('refreshToken', refreshToken, {
+        httpOnly:false,
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      });
     push(`/home`)
     })
     .catch(error => {
