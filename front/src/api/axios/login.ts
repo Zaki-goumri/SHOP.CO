@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { serialize } from 'cookie';
 
-
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
@@ -74,7 +73,6 @@ instance.interceptors.response.use(
             httpOnly: true,
             expires: new Date(0)
           });
-        window.location.href = '/signin';
         return Promise.reject(refreshError);
       }
     }

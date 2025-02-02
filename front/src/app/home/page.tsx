@@ -23,7 +23,6 @@ export default function Page() {
         throw new Error('Unauthorized');
       }
       setUser(response.data); 
-      // push('/signin');
       return response.data;
     }
 
@@ -36,7 +35,6 @@ export default function Page() {
 
   const { isLoading } = useQuery({ queryKey: ['user'], queryFn: fetchUser });
   if (isLoading) return <Loading />;
-  
   return (
     <main>
       <div>

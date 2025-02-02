@@ -21,9 +21,9 @@ export default function RootLayout({
   
   
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={false}  className="overflow-x-hidden w-screen">
       <body>
-        <Suspense fallback={<Loading/>} >
+        <Suspense fallback={<Loading/>}  >
         <ReactQueryProvider>
         <Header />
         {children}

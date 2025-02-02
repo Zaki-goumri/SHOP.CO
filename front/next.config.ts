@@ -18,7 +18,9 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 const nextConfig = {
   images: {
     domains: ['fr.louisvuitton.com'],  },
-  
+
+    
 };
+
 
 module.exports = withPWA(nextConfig);
