@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
-import { Baby, Smartphone, Watch } from 'lucide-react'
 
 const categories = [
   'Men',

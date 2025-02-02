@@ -66,7 +66,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-1/2  ">
+    <div className="flex justify-center items-center min-h-screen w-[calc(100%-0px)] ">
       <div className="bg-white p-12 rounded-lg shadow-lg w-full max-w-lg ">
         <h2 className="text-3xl font-bold mb-8 text-center">Sign In</h2>
         <Form {...form} >
@@ -97,7 +97,7 @@ export default function Page() {
                   <FormControl>
                   <div className="relative">
                     <Input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="Password"
                     {...field}
                     className="border border-gray-300 rounded-md p-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full pr-12"
@@ -105,11 +105,7 @@ export default function Page() {
                     <Button
                     type="button"
                     onClick={() => {
-                      setShowPassword(!showPassword);
-                      const passwordInput = document.querySelector('input[name="password"]');
-                      if (passwordInput) {
-                      (passwordInput as HTMLInputElement).type = (passwordInput as HTMLInputElement).type === "password" ? "text" : "password";
-                      }
+                       setShowPassword(!showPassword);
                     }}
                     className="absolute inset-y-0 right-0 px-4 py-2 bg-transparent hover:opacity-85"
                     >

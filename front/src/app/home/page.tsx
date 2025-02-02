@@ -35,7 +35,6 @@ export default function Page() {
 
   const { isLoading } = useQuery({ queryKey: ['user'], queryFn: fetchUser });
   if (isLoading) return <Loading />;
-  
   return (
     <main>
       <div>

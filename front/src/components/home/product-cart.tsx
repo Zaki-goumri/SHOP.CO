@@ -1,11 +1,10 @@
-"use client"
-    import React from 'react';
-    import Card from '@material-ui/core/Card';
-    import CardContent from '@material-ui/core/CardContent';
-    import Image from 'next/image';
-    import axios from '@/api/axios/login';    
-import { useQuery } from '@tanstack/react-query';
-import Loading from '../globalComponents/loading';
+"use client";"use strict";
+import React from 'react';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Image from 'next/image';
+import axios from '@/api/axios/login';    
+import { useMutation, useQuery, QueryClient } from '@tanstack/react-query';
 import { Alert } from '@mui/material';
        
 export interface Product {
@@ -13,46 +12,57 @@ export interface Product {
     title: string;
     price: number;
     description: string;
-    id: string;
+    _id: string;
 }
 
- const ProductCard = ({ product }: { product: Product }) => {
+interface sentData {
+    quantity: number;
+    size: string;
+    color: string;
+}
+
+const queryClient = new QueryClient();
+
+const ProductCard = ({ product }: { product: Product }) => {
 
     const [productData, setProductData] = React.useState({quantity: 1, size: 'small', color: 'black'});
     const [result, setResult] = React.useState<{message: string, severity: 'error' | 'info' | 'success' | undefined }>({message:'',severity: undefined});
 
 
     const onChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-       
         if(e.target.name == 'quantity'){
-           const value = Number(e.target.value);
+           const value = parseInt(e.target.value);
             setProductData({ ...productData, quantity: value });
             return
         }
         setProductData({ ...productData, [e.target.name]: e.target.value });
     }
     
-    const addToCart = async () => {
-        const response = await axios.post(`/cart/${product.id}`, productData);
-        return response.data;
-    }
 
-    const { data: res, isLoading, isError } = useQuery({ queryKey: ['add to cart'], queryFn: addToCart });
+    const addToCartMutation = useMutation({
+      mutationFn: (productData:sentData) => 
+        axios.post(`/cart/${product._id}`, productData).then(res => res.data),
+      onSuccess: () => {
+        setResult({ message: 'Product added to cart', severity: 'success' })
+
+        queryClient.invalidateQueries({ queryKey: ['cart'] })
+      },
+      onError: () => {
+        setResult({ message: 'An error occurred', severity: 'error' })
+      }
+    })
+    
 
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        addToCart();
-
-        if (res) setResult({ message: 'Product added to cart', severity: 'success' });
-        if (isLoading) setResult({ message: 'Loading', severity: 'info' });
-        if (isError) setResult({ message: 'An error occurred', severity: 'error' });
-
-    }
+        const form = event.currentTarget
+          addToCartMutation.mutate(productData)
+      }
 
     return(
         <div>
-                  {result.message && <Alert className='mb-4' severity={result.severity}>{result.message}</Alert>}
+           {result.message && <Alert className='mb-4' severity={result.severity}>{result.message}</Alert>}
 
           <Card>
             <CardContent className="p-6">

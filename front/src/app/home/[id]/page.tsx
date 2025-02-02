@@ -14,6 +14,7 @@ async function getProduct(id: string) {
 }
 
 
+
 export default async function ProductPage({ params }: { params: { id: string } }) {
   
   const { id } = await params
@@ -23,9 +24,9 @@ export default async function ProductPage({ params }: { params: { id: string } }
   }
   product.id = id
   return (
-    <div className="container w-[80%] mx-auto px-4 py-8">
-            <ProductCard product={product} />
-    </div>
+      <div className="container w-[80%] mx-auto px-4 py-8">
+          <ProductCard product={product} />
+      </div>
   )
 }
 

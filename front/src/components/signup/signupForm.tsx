@@ -59,13 +59,13 @@ const { push } = useRouter();
     return;
    }
    const controller = new AbortController();
-  axios.post(`/auth/register`, values,{signal: controller.signal})
+  axios.post(`/auth/register`, values
+  )
   .then(response => {
     const { accessToken, refreshToken } = response.data;
       document.cookie = serialize('accessToken', accessToken, {
         httpOnly:false,
         expires: new Date(Date.now() +  24 * 60 * 60 * 1000) 
-
       });
       document.cookie = serialize('refreshToken', refreshToken, {
         httpOnly:false,
@@ -79,7 +79,7 @@ const { push } = useRouter();
   }
   
   return (
-    <div className="flex justify-center items-center min-h-screen w-1/2  ">
+    <div className="flex justify-center items-center min-h-screen w-[calc(100%-30px)]  ">
       <div  className="bg-white p-12 rounded-lg shadow-lg w-full max-w-lg ">
         <h2 className="text-3xl font-bold mb-8 text-center">Sign Up </h2>
         <Form {...form}>

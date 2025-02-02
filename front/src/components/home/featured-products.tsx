@@ -1,11 +1,12 @@
-import Image from 'next/image'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+
 import axios from '@/api/axios/axios'
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Loading from '../globalComponents/loading'
 import Link from 'next/link'
+import ProductCard from './product-cart'
+import { Product } from "@/components/home/product-cart";
+
 
 // const featuredProducts = [
 //   { id: 1, name: 'T-Shirt', price: 19.99, image: 'https://fr.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-sac-a-dos-avenue--N40501_PM1_Worn%20view.png?wid=1090&hei=1090' },
@@ -21,14 +22,7 @@ const getProducts = async () => {
   }
   return response.data
 }
- interface Product {
-  id: number
-  title: string
-  price: number
-  image: string
-  _id: string
-}
-
+ 
 
 export default function FeaturedProducts() {
 
@@ -55,25 +49,8 @@ const { isLoading } = useQuery({ queryKey: ['user'], queryFn: getProducts });
           {featuredProducts.map((product) => (
            
            <Link key={product._id} href={`/home/${product._id}`}>
-             <Card >
-              <CardContent className="p-4">
-                <Image
-                  loader={() => product.image }
-                  src={product.image}
-                  alt={product.title || 'Product Image'}
-                  width={0}
-                  height={0}
-                  style={{height:'auto', width: 'auto'}}
-                  className="w-full h-48 object-cover rounded-md"
-                />
-                <h3 className="mt-2 text-lg font-semibold text-gray-900">{product.title}</h3>
-                <p className="text-gray-600">${product.price.toFixed(2)}</p>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full">See details</Button>
-              </CardFooter>
-              </Card>
 
+              <ProductCard key={product._id} product={product} />
               </Link>
           ))}
         </div>
